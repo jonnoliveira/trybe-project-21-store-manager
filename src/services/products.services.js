@@ -1,21 +1,25 @@
 const productsModel = require('../models/products.model');
-
-const httpErrorGenerator = (status, message) => ({ status, message });
+const { validateId } = require('../middlewares/validateId');
 
 const findAll = async () => {
   const products = await productsModel.findAll();
   if (!products) {
-    throw httpErrorGenerator(404, 'Products not found');
+    return { type: 500, message: 'Erro na requisição' };
   }
-  return products;
+
+  return { type: null, message: products };
 };
 
 const findById = async (id) => {
+  const isValidId = validateId(id);
+  if (isValidId.type) return isValidId;
+
   const product = await productsModel.findById(id);
   if (!product) {
-    throw httpErrorGenerator(404, 'Product not found');
+    return { type: 404, message: 'Product not found' };
   }
-  return product;
+
+  return { type: null, message: product };
 };
 
 module.exports = { 

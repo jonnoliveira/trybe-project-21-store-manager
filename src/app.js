@@ -1,8 +1,8 @@
 const express = require('express');
+const { productsRouter } = require('./routers');
 
 const app = express();
 
-const productsController = require('./controllers/products');
 const errorHandler = require('./middlewares/errorHandler');
 
 app.use(express.json());
@@ -12,9 +12,7 @@ app.get('/', (_request, response) => {
   response.send();
 });
 
-app.get('/products/:id', productsController.findById);
-
-app.get('/products', productsController.findAll);
+app.use('/products', productsRouter);
 
 app.use(errorHandler);
 

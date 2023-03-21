@@ -4,11 +4,11 @@
     "colId": "history",
     "containerId": "",
     "name": "findById",
-    "url": "http://localhost:3001/products/9",
+    "url": "http://localhost:3001/products",
     "method": "GET",
     "sortNum": 0,
     "created": "2023-03-21T18:51:08.076Z",
-    "modified": "2023-03-21T20:42:21.127Z",
+    "modified": "2023-03-21T23:45:25.405Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -25,6 +25,25 @@
     "modified": "2023-03-21T21:22:44.419Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "c98ab809-169e-4305-bc68-7cf97c38bff0",
+    "colId": "history",
+    "containerId": "",
+    "name": "insert",
+    "url": "http://localhost:3001/products",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2023-03-21T23:07:13.658Z",
+    "modified": "2023-03-21T23:54:24.753Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"Mufasa\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

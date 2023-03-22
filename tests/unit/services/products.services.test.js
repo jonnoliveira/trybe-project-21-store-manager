@@ -7,7 +7,7 @@ productsModel,
 
 const { productsService } = require('../../../src/services');
 
-const { productsList, productItem } = require('./mocks/products.service.mock')
+const { productsList, productItem, validName, validProduct } = require('./mocks/products.service.mock')
 
 describe('Teste da unidade do productsServices', function () {
   describe('Listando todos os produtos', function () {
@@ -56,7 +56,7 @@ describe('Teste da unidade do productsServices', function () {
       expect(result.message).to.deep.equal('Product not found');
     });
 
-        it('Deve retornar um produto caso exista o Id', async function () {
+    it('Deve retornar um produto caso exista o Id', async function () {
       // arrange
       sinon.stub(productsModel, 'findById').resolves(productItem);
 
@@ -66,6 +66,44 @@ describe('Teste da unidade do productsServices', function () {
       expect(result.type).to.be.equal(null);
       expect(result.message).to.deep.equal(productItem);
     });
+  });
+
+  describe('Adicionando um novo produto', function () {
+    it('Ao passar dados inválidos deve retornar um erro', async function() {     
+      // act
+      const result = await productsService.insert('ih');
+
+      // assert
+      expect(result.type).to.be.equal(422);
+      expect(result.message).to.be.equal('"name" length must be at least 5 characters long');
+    });
+
+    it('Deve retornar erro quando o produto não for encontrado no db', async function () {  
+      // arrange
+      sinon.stub(productsModel, "insert").resolves();
+
+      // act
+      const result = await productsService.insert(validName);
+
+      // assert
+      expect(result.type).to.equal(404);
+      expect(result.message).to.deep.equal('Product not found');
+    });
+
+    it('Se tudo certo retorna com sucesso', async function () {  
+      // arrange
+      sinon.stub(productsModel, "insert").resolves(4);
+      sinon.stub(productsModel, "findById").resolves(validProduct);
+
+      // act
+      const result = await productsService.insert(validName);
+
+      // assert
+      expect(result.type).to.equal(null);
+      expect(result.message).to.deep.equal(validProduct);
+    });
+
+
   });
 
   afterEach(function () {

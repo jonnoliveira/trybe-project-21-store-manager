@@ -18,7 +18,12 @@ const productItem = {
   name: "Martelo de Thor"
 };
 
+const newProduct = {
+  name: "Barril do Chaves"
+};
+
 module.exports = {
   productsList,
   productItem,
+  newProduct,
 }

@@ -25,7 +25,7 @@ const insert = async (name) => {
 
   const newProductId = await productsModel.insert(name);
   if (!newProductId) return { type: 404, message: 'Product not found' };
-  
+  console.log(newProductId);
   const newProduct = await productsModel.findById(newProductId);
 
   return { type: null, message: newProduct };

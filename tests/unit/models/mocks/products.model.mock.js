@@ -13,6 +13,12 @@ const productsList = [
   }
 ];
 
+const validProduct = {
+  id: 4,
+  name: 'Simba de Pelúcia',
+}
+
 module.exports = {
   productsList,
+  validProduct,
 }

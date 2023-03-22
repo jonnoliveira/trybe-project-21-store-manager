@@ -18,7 +18,15 @@ const productItem = {
   name: "Escudo do Capitão América"
 };
 
+const validName = 'Simba de Pelucia';
+const validProduct = {
+  id: 4,
+  name: 'Simba de Pelucia',
+}
+
 module.exports = {
   productsList,
   productItem,
+  validName,
+  validProduct,
 }

@@ -5,7 +5,7 @@ const { productsModel } = require('../../../src/models');
 
 const connection = require('../../../src/models/connection');
 
-const { productsList } = require('./mocks/products.model.mock');
+const { productsList, validProduct } = require('./mocks/products.model.mock');
 
 describe('Teste da unidade do productsModel', function () {
   describe('Recuperando a lista de produtos do db', function () {
@@ -32,6 +32,20 @@ describe('Teste da unidade do productsModel', function () {
 
       // assert
       expect(result).to.be.deep.equal(productsList[1]);
+
+    });
+  });
+
+    describe('Inserindo um produto da lista', function () {
+    it('Deve retornar um produto específico', async function () {
+      // arrange
+    sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
+
+      // act
+      const result = await productsModel.insert(validProduct);
+
+      // assert
+      expect(result).to.be.equal(4);
 
     });
   });

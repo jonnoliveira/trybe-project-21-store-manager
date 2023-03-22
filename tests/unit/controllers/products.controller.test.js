@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const { productsController } = require('../../../src/controllers');
 const { productsService } = require('../../../src/services');
 
-const { productsList, productItem } = require('./mocks/products.mock')
+const { productsList, productItem, newProduct } = require('./mocks/products.mock')
 
 describe('Teste da unidade do productsController', function () {
   describe('Listando todos os produtos', function () {
@@ -94,6 +94,50 @@ describe('Teste da unidade do productsController', function () {
       // assert
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' } );
+    });
+  });
+
+  describe('Adicionando um novo produto', function () {
+    it('Ao passar dados inválidos deve retornar um erro', async function() {
+      // arrange
+      const req = {
+        body: { nome: 'la' },
+      };
+      const res = {};
+      
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'insert')
+        .resolves({ type: 404, message: 'Product not found' });
+      
+      // act
+      await productsController.insert(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+    });
+
+        it('Ao passar dados validos deve salvar com sucesso', async function() {
+      // arrange
+      const req = {
+        body: newProduct,
+      };
+      const res = {};
+      
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'insert')
+        .resolves({ type: null, message: newProduct })
+      
+      // act
+      await productsController.insert(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledWith(newProduct);
     });
   });
 

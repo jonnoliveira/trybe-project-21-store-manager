@@ -36,10 +36,10 @@ describe('Teste da unidade do productsModel', function () {
     });
   });
 
-    describe('Inserindo um produto da lista', function () {
+  describe('Inserindo um produto da lista', function () {
     it('Deve retornar um produto específico', async function () {
       // arrange
-    sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
+      sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
 
       // act
       const result = await productsModel.insert(validProduct);

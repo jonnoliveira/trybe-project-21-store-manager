@@ -29,7 +29,7 @@ const findAll = async () => {
 
   if (!sales) return { type: 404, message: 'Sale not found' };
 
-  return { type: '', message: sales };
+  return { type: null, message: sales };
 };
 
 const findById = async (id) => {

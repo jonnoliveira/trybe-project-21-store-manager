@@ -7,7 +7,7 @@ productsModel,
 
 const { productsService } = require('../../../src/services');
 
-const { productsList, productItem, validName, validProduct, updatedItem } = require('./mocks/products.service.mock')
+const { productsList, productItem, validName, validProduct, updatedItem, itemQuery } = require('./mocks/products.service.mock')
 
 describe('Teste da unidade do productsServices', function () {
   describe('Listando todos os produtos', function () {
@@ -202,6 +202,23 @@ describe('Teste da unidade do productsServices', function () {
       
       // assert
       expect(result.type).to.be.equal(null);
+    });
+  });
+
+  describe('Listando um produto específico por query', function () {
+    it('Deve retornar o status 200 e o produto', async function () {
+      // arrange
+      const query = 'Martelo';
+      sinon
+        .stub(productsModel, 'findByQuery')
+        .resolves(itemQuery);
+      
+      // act
+      const result = await productsService.findByQuery(query);
+
+      // assert
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(itemQuery);
     });
   });
   

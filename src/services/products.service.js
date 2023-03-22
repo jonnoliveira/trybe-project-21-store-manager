@@ -46,7 +46,6 @@ const deleteById = async (id) => {
 
 const findByQuery = async (q) => {
   const products = await productsModel.findByQuery(q);
-  if (!products) return { type: 500, message: 'Erro na requisição' };
   
   return { type: null, message: products };
 };

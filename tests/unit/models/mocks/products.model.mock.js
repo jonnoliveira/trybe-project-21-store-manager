@@ -25,8 +25,16 @@ const updatedItem = [
   },
 ];
 
+const itemQuery = [
+  {
+    "id": 1,
+    "name": "Martelo de Thor"
+  }
+];
+
 module.exports = {
   productsList,
   validProduct,
   updatedItem,
+  itemQuery,
 }

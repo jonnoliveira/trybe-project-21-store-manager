@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const { productsController } = require('../../../src/controllers');
 const { productsService } = require('../../../src/services');
 
-const { productsList, productItem, newProduct, updatedItem } = require('./mocks/products.mock')
+const { productsList, productItem, newProduct, updatedItem, itemQuery} = require('./mocks/products.mock')
 
 describe('Teste da unidade do productsController', function () {
   describe('Listando todos os produtos', function () {
@@ -249,6 +249,48 @@ describe('Teste da unidade do productsController', function () {
 
       // assert
       expect(res.status).to.have.been.calledWith(204);
+    });
+  });
+
+  describe('Listando um produto específico por query', function () {
+    it('Deve retornar o status 200 e o produto', async function() {
+      // arrange
+      const req = {
+        query: { q: 'Martelo'},
+      };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'findByQuery')
+        .resolves({ type: null, message: itemQuery });
+      
+      // act
+      await productsController.findByQuery(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(itemQuery);
+    });
+
+    it('Deve falha caso dê algum problema', async function() {
+      // arrange
+      const req = {query: ''};
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'findByQuery')
+        .resolves({ type: 500, message: 'Erro na requisição' });
+      
+      // act
+      await productsController.findByQuery(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(500);
+      expect(res.json).to.have.been.calledWith( { message: 'Erro na requisição' } );
     });
   });
 

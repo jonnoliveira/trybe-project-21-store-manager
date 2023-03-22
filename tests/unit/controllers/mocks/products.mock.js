@@ -27,9 +27,17 @@ const updatedItem = {
   "name": "Biribinha Atômica"
 }
 
+const itemQuery = [
+  {
+    "id": 1,
+    "name": "Martelo de Thor"
+  }
+];
+
 module.exports = {
   productsList,
   productItem,
   newProduct,
-  updatedItem
+  updatedItem,
+  itemQuery
 }

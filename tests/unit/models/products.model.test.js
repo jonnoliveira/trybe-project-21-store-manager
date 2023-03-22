@@ -5,7 +5,7 @@ const { productsModel } = require('../../../src/models');
 
 const connection = require('../../../src/models/connection');
 
-const { productsList, validProduct, updatedItem } = require('./mocks/products.model.mock');
+const { productsList, validProduct, itemQuery} = require('./mocks/products.model.mock');
 
 describe('Teste da unidade do productsModel', function () {
   describe('Recuperando a lista de produtos do db', function () {
@@ -77,6 +77,20 @@ describe('Teste da unidade do productsModel', function () {
       // assert
       expect(result).to.be.equal(4);
 
+    });
+  });
+
+  describe('Listando um produto específico por query', function () {
+    it('Deve retornar o produto', async function () {
+      // arrange
+      const query = 'Martelo';
+      sinon.stub(connection, 'execute').resolves([itemQuery]);
+
+      // act
+      const result = await productsModel.findByQuery(query);
+
+      // assert
+      expect(result).to.be.equal(itemQuery);
     });
   });
 

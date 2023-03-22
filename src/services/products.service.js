@@ -39,7 +39,6 @@ const deleteById = async (id) => {
   if (isValidId.type) return isValidId;
 
   const affectedRows = await productsModel.deleteById(id);
-  console.log(affectedRows);
   if (affectedRows === 0) return { type: 404, message: 'Product not found' };
   
   return { type: null };

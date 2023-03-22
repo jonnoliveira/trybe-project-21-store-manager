@@ -51,6 +51,21 @@ describe('Teste da unidade do productsModel', function () {
     });
   });
 
+  describe('Deletando um produto da lista', function () {
+    it('Deve retornar se houve linhas afetadas', async function () {
+      // arrange
+      const id = 1;
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+      // act
+      const result = await productsModel.deleteById(id);
+
+      // assert
+      expect(result).to.be.equal(1);
+
+    });
+  });
+
   describe('Inserindo um produto da lista', function () {
     it('Deve retornar um produto específico', async function () {
       // arrange
@@ -64,6 +79,7 @@ describe('Teste da unidade do productsModel', function () {
 
     });
   });
+
 
   afterEach(() => {
     sinon.restore();

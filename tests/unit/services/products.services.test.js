@@ -165,6 +165,45 @@ describe('Teste da unidade do productsServices', function () {
       expect(result.message).to.deep.equal(updatedItem);
     });
   });
+
+  describe('Deleta um produto', function () {
+    it('Ao passar um id inválido deve retornar um erro', async function() {
+      // arrenge
+      const id = 'aeae';
+      
+      // act
+      const result = await productsService.deleteById(id);
+      
+      // assert
+      expect(result.type).to.be.equal(400);
+      expect(result.message).to.deep.equal('\"id\" must be a number');
+    });
+
+    it('Ao passar um id inexistente deve retornar um erro', async function() {
+      // arrenge
+      const id = 999;
+      sinon.stub(productsModel, 'deleteById').resolves(0)
+      
+      // act
+      const result = await productsService.deleteById(id);
+      
+      // assert
+      expect(result.type).to.be.equal(404);
+      expect(result.message).to.deep.equal('Product not found');
+    });
+
+    it('Retorna sucesso quando estiver tudo ok', async function() {
+      // arrenge
+      const id = 1;
+      sinon.stub(productsModel, 'deleteById').resolves(1)
+      
+      // act
+      const result = await productsService.deleteById(id);
+      
+      // assert
+      expect(result.type).to.be.equal(null);
+    });
+  });
   
   afterEach(function () {
   sinon.restore();

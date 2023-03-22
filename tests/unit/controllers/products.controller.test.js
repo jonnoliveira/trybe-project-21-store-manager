@@ -209,6 +209,49 @@ describe('Teste da unidade do productsController', function () {
     });
   });
 
+  describe('Deleta um produto', function () {
+    it('Ao passar um id inválido deve retornar um erro', async function() {
+       // arrange
+      const req = {
+        params: { id: 99 },
+      };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'deleteById')
+        .resolves({ type: 404, message: 'Product not found' });
+      
+      // act
+      await productsController.deleteById(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Product not found' } );
+    });
+
+    it('Ao passar um id válido deve retornar com sucesso', async function() {
+       // arrange
+      const req = {
+        params: { id: 1 },
+      };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'deleteById')
+        .resolves({ type: null });
+      
+      // act
+      await productsController.deleteById(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(204);
+    });
+  });
+
 
   afterEach(function () {
   sinon.restore();

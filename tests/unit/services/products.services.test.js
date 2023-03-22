@@ -7,7 +7,7 @@ productsModel,
 
 const { productsService } = require('../../../src/services');
 
-const { productsList, productItem, validName, validProduct } = require('./mocks/products.service.mock')
+const { productsList, productItem, validName, validProduct, updatedItem } = require('./mocks/products.service.mock')
 
 describe('Teste da unidade do productsServices', function () {
   describe('Listando todos os produtos', function () {
@@ -37,7 +37,7 @@ describe('Teste da unidade do productsServices', function () {
 
   describe('Listando um produto específico', function () {
     it('Deve retornar erro caso o Id seja inválido', async function () {
-      // arrange
+      // act
       const result = await productsService.findById('aeae');
       
       // assert
@@ -51,6 +51,7 @@ describe('Teste da unidade do productsServices', function () {
 
       // act
       const result = await productsService.findById(999);
+
       // assert
       expect(result.type).to.be.equal(404);
       expect(result.message).to.deep.equal('Product not found');
@@ -106,6 +107,65 @@ describe('Teste da unidade do productsServices', function () {
 
   });
 
+  describe('Atualizando um produto', function () {
+    it('Ao passar um id inválido deve retornar um erro', async function() {
+      // arrenge
+      const name = 'Biribinha Atômica';
+      const id = 'aeae';
+      
+      // act
+      const result = await productsService.updateById(id, name);
+      
+      // assert
+      expect(result.type).to.be.equal(400);
+      expect(result.message).to.deep.equal('"id" must be a number');
+    });
+
+    it('Deve retornar erro caso o Id não exista', async function () {
+      // arrange
+      const name = 'Biribinha Atômica';
+      const id = 999;
+      sinon.stub(productsModel, 'updateById').resolves(0);
+
+      // act
+      const result = await productsService.updateById(id, name);
+
+      // assert
+      expect(result.type).to.be.equal(404);
+      expect(result.message).to.deep.equal('Product not found');
+    });
+
+    it('Deve retornar erro caso o nome seja inválido', async function () {
+      // arrange
+      const name = 'Bir';
+      const id = 1;
+      sinon.stub(productsModel, 'updateById').resolves(0);
+
+      // act
+      const result = await productsService.updateById(id, name);
+
+      // assert
+      expect(result.type).to.be.equal(422);
+      expect(result.message).to.deep.equal('\"name\" length must be at least 5 characters long');
+    });
+
+    it('Deve retornar um produto atualizado', async function () {
+      // arrange
+      const name = 'Biribinha Atômica';
+      const id = 3;
+      sinon.stub(productsModel, 'updateById').resolves(1);
+      sinon.stub(productsModel, 'findById').resolves(updatedItem);
+
+      // act
+      await productsService.updateById(id, name);
+      const result = await productsService.findById(id);
+
+      // assert
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.deep.equal(updatedItem);
+    });
+  });
+  
   afterEach(function () {
   sinon.restore();
   });

@@ -24,9 +24,15 @@ const validProduct = {
   name: 'Simba de Pelucia',
 }
 
+const updatedItem = {
+  "id": 3,
+  "name": "Biribinha Atômica"
+}
+
 module.exports = {
   productsList,
   productItem,
   validName,
   validProduct,
+  updatedItem
 }

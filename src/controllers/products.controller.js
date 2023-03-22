@@ -23,7 +23,7 @@ const updateById = async (req, res) => {
   const { type, message } = await productsService.updateById(id, name);
 
   if (type) return res.status(type).json({ message });
-  
+
   return res.status(200).json(message);
 };
 

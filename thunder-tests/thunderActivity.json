@@ -102,126 +102,12 @@
     "method": "PUT",
     "sortNum": 0,
     "created": "2023-03-22T17:48:55.615Z",
-    "modified": "2023-03-22T17:48:55.615Z",
+    "modified": "2023-03-22T19:04:46.800Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"name\": \"Martelo do Chappolin\"\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
-    "_id": "9c5e3476-707c-4713-b01a-3cf5bb85b871",
-    "colId": "history",
-    "containerId": "",
-    "name": "http://localhost:3001/products/a",
-    "url": "http://localhost:3001/products/a",
-    "method": "PUT",
-    "sortNum": 0,
-    "created": "2023-03-22T17:50:26.995Z",
-    "modified": "2023-03-22T17:50:26.995Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"name\": \"Martelo do Chappolin\"\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
-    "_id": "b993c161-648c-48af-8ca5-695fb584aeff",
-    "colId": "history",
-    "containerId": "",
-    "name": "http://localhost:3001/products/1",
-    "url": "http://localhost:3001/products/1",
-    "method": "PUT",
-    "sortNum": 0,
-    "created": "2023-03-22T17:50:32.599Z",
-    "modified": "2023-03-22T17:51:59.062Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"name\": \"Martelo do Chappolin\"\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
-    "_id": "83895fee-e16a-447d-b586-df09c37d00f8",
-    "colId": "history",
-    "containerId": "",
-    "name": "http://localhost:3001/products/52",
-    "url": "http://localhost:3001/products/52",
-    "method": "PUT",
-    "sortNum": 0,
-    "created": "2023-03-22T17:56:59.640Z",
-    "modified": "2023-03-22T17:56:59.640Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"name\": \"Martelo do Chappolin\"\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
-    "_id": "ad7943ab-79ec-4105-b6ed-cfa8e41833e6",
-    "colId": "history",
-    "containerId": "",
-    "name": "http://localhost:3001/products/52999",
-    "url": "http://localhost:3001/products/52999",
-    "method": "PUT",
-    "sortNum": 0,
-    "created": "2023-03-22T17:57:19.801Z",
-    "modified": "2023-03-22T17:57:19.801Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"name\": \"Martelo do Chappolin\"\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
-    "_id": "0e698bdf-4e36-4396-96aa-ad0de7dba166",
-    "colId": "history",
-    "containerId": "",
-    "name": "http://localhost:3001/products/1747474",
-    "url": "http://localhost:3001/products/1747474",
-    "method": "PUT",
-    "sortNum": 0,
-    "created": "2023-03-22T18:02:07.777Z",
-    "modified": "2023-03-22T18:02:07.777Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"name\": \"Martelo do Chappolin\"\n}",
-      "form": []
-    },
-    "tests": []
-  },
-  {
-    "_id": "7cc6f470-328d-4ff6-a75b-f989b13da589",
-    "colId": "history",
-    "containerId": "",
-    "name": "http://localhost:3001/products/2",
-    "url": "http://localhost:3001/products/2",
-    "method": "PUT",
-    "sortNum": 0,
-    "created": "2023-03-22T18:04:05.641Z",
-    "modified": "2023-03-22T18:04:05.641Z",
-    "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"name\": \"Teia do Miranha\"\n}",
+      "raw": "{\n  \"name\": \"Ba\"\n}",
       "form": []
     },
     "tests": []

@@ -18,7 +18,15 @@ const validProduct = {
   name: 'Simba de Pelúcia',
 }
 
+const updatedItem = [
+  {
+    id: 1,
+    name: 'Biribinha Atômica',
+  },
+];
+
 module.exports = {
   productsList,
   validProduct,
+  updatedItem,
 }

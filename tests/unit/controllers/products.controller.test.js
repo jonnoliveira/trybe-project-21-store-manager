@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const { productsController } = require('../../../src/controllers');
 const { productsService } = require('../../../src/services');
 
-const { productsList, productItem, newProduct } = require('./mocks/products.mock')
+const { productsList, productItem, newProduct, updatedItem } = require('./mocks/products.mock')
 
 describe('Teste da unidade do productsController', function () {
   describe('Listando todos os produtos', function () {
@@ -138,6 +138,74 @@ describe('Teste da unidade do productsController', function () {
       // assert
       expect(res.status).to.have.been.calledWith(201);
       expect(res.json).to.have.been.calledWith(newProduct);
+    });
+  });
+
+  describe('Atualizando um produto', function () {
+    it('Ao passar um id inválido deve retornar um erro', async function() {
+       // arrange
+      const req = {
+        params: { id: 99 },
+        body: { name: 'Biribinha Atômica' }
+      };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'updateById')
+        .resolves({ type: 404, message: 'Product not found' });
+      
+      // act
+      await productsController.updateById(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Product not found' } );
+    });
+
+    it('Ao passar um nome inválido deve retornar um erro', async function() {
+       // arrange
+      const req = {
+        params: { id: 1 },
+        body: { name: 'Bir' }
+      };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'updateById')
+        .resolves({ type: 422, message: '\"name\" length must be at least 5 characters long' });
+      
+      // act
+      await productsController.updateById(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(422);
+      expect(res.json).to.have.been.calledWith({ message: '\"name\" length must be at least 5 characters long' } );
+    });
+
+    it('Ao passar dados válidos retorna com sucesso', async function() {
+       // arrange
+      const req = {
+        params: { id: 1 },
+        body: { name: 'Biribinha Atômica' }
+      };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(productsService, 'updateById')
+        .resolves({ type: null, message: updatedItem });
+      
+      // act
+      await productsController.updateById(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(updatedItem);
     });
   });
 

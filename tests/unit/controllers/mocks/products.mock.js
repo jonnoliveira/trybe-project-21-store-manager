@@ -22,8 +22,14 @@ const newProduct = {
   name: "Barril do Chaves"
 };
 
+const updatedItem = {
+  "id": 1,
+  "name": "Biribinha Atômica"
+}
+
 module.exports = {
   productsList,
   productItem,
   newProduct,
+  updatedItem
 }

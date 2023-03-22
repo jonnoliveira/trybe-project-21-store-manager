@@ -30,7 +30,7 @@ const updateById = async (id, name) => {
   if (affectedRows === 0) return { type: 404, message: 'Product not found' };
 
   const product = await productsModel.findById(id);
-  if (!product) return { type: 404, message: 'Product not found' }; 
+  // if (!product) return { type: 404, message: 'Product not found' }; 
 
   return { type: null, message: product };
 };

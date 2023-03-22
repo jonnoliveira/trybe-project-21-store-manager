@@ -5,7 +5,7 @@ const { productsModel } = require('../../../src/models');
 
 const connection = require('../../../src/models/connection');
 
-const { productsList, validProduct } = require('./mocks/products.model.mock');
+const { productsList, validProduct, updatedItem } = require('./mocks/products.model.mock');
 
 describe('Teste da unidade do productsModel', function () {
   describe('Recuperando a lista de produtos do db', function () {
@@ -36,6 +36,21 @@ describe('Teste da unidade do productsModel', function () {
     });
   });
 
+  describe('Atualizando um produto da lista pelo Id', function () {
+    it('Deve retornar um id de cadastro', async function () {
+      // arrange
+      const name = 'Biribinha Atômica';
+      const id = 1;
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+      // act
+      const result = await productsModel.updateById(id, name);
+
+      // assert
+      expect(result).to.be.deep.equal(1);
+    });
+  });
+
   describe('Inserindo um produto da lista', function () {
     it('Deve retornar um produto específico', async function () {
       // arrange
@@ -50,7 +65,7 @@ describe('Teste da unidade do productsModel', function () {
     });
   });
 
-  this.afterEach(() => {
+  afterEach(() => {
     sinon.restore();
   })
 });

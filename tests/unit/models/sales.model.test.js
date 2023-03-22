@@ -34,6 +34,22 @@ describe('Teste da unidade do salesModel', function () {
 
     });
   });
+
+  describe('Deletando uma venda da lista', function () {
+    it('Deve retornar se houve linhas afetadas', async function () {
+      // arrange
+      const id = 1;
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+      // act
+      const result = await salesModel.deleteById(id);
+
+      // assert
+      expect(result).to.be.equal(1);
+
+    });
+  });
+
   afterEach(() => {
     sinon.restore();
   });

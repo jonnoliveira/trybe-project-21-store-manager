@@ -69,7 +69,88 @@ describe('Teste da unidade do salesService', async function () {
       expect(result.type).to.be.equal(null);
       expect(result.message).to.deep.equal(saleItem);
     });
+
+  describe('Deleta um produto', function () {
+    it('Ao passar um id inválido deve retornar um erro', async function() {
+      // arrenge
+      const id = 'aeae';
+      
+      // act
+      const result = await salesService.deleteById(id);
+      
+      // assert
+      expect(result.type).to.be.equal(400);
+      expect(result.message).to.deep.equal('\"id\" must be a number');
+    });
+
+    it('Ao passar um id inexistente deve retornar um erro', async function() {
+      // arrenge
+      const id = 999;
+      sinon.stub(salesModel, 'deleteById').resolves(0)
+      
+      // act
+      const result = await salesService.deleteById(id);
+      
+      // assert
+      expect(result.type).to.be.equal(404);
+      expect(result.message).to.deep.equal('Sale not found');
+    });
+
+    it('Retorna sucesso quando estiver tudo ok', async function() {
+      // arrenge
+      const id = 1;
+      sinon.stub(salesModel, 'deleteById').resolves(1)
+      
+      // act
+      const result = await salesService.deleteById(id);
+      
+      // assert
+      expect(result.type).to.be.equal(null);
+    });
   });
+  
+  });
+
+  describe('Deleta uma venda', function () {
+    it('Ao passar um id inválido deve retornar um erro', async function() {
+      // arrenge
+      const id = 'aeae';
+      
+      // act
+      const result = await salesService.deleteById(id);
+      
+      // assert
+      expect(result.type).to.be.equal(400);
+      expect(result.message).to.deep.equal('\"id\" must be a number');
+    });
+
+    it('Ao passar um id inexistente deve retornar um erro', async function() {
+      // arrenge
+      const id = 999;
+      sinon.stub(salesModel, 'deleteById').resolves(0)
+      
+      // act
+      const result = await salesService.deleteById(id);
+      
+      // assert
+      expect(result.type).to.be.equal(404);
+      expect(result.message).to.deep.equal('Sale not found');
+    });
+
+    it('Retorna sucesso quando estiver tudo ok', async function() {
+      // arrenge
+      const id = 1;
+      sinon.stub(salesModel, 'deleteById').resolves(1)
+      
+      // act
+      const result = await salesService.deleteById(id);
+      
+      // assert
+      expect(result.type).to.be.equal(null);
+    });
+  });
+  
+
   afterEach(() => {
     sinon.restore();
   })

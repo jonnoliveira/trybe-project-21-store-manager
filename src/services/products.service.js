@@ -44,6 +44,13 @@ const deleteById = async (id) => {
   return { type: null };
 };
 
+const findByQuery = async (q) => {
+  const products = await productsModel.findByQuery(q);
+  if (!products) return { type: 500, message: 'Erro na requisição' };
+  
+  return { type: null, message: products };
+};
+
 const insert = async (name) => {
   const isValidName = validateName(name);
   if (isValidName.type) return isValidName;
@@ -61,5 +68,6 @@ module.exports = {
   findById,
   updateById,
   deleteById,
+  findByQuery,
   insert,
 };

@@ -24,8 +24,14 @@ const deleteById = async (id) => {
   return affectedRows;
 };
 
+const findByQuery = async (q) => {
+  const query = 'SELECT * FROM StoreManager.products WHERE name LIKE ?';
+  const [products] = await connection.execute(query, [`%${q}%`]);
+  return products;
+};
+
 const insert = async (name) => {  
-  const query = 'INSERT INTO StoreManager.products (name) VALUE (?)';
+  const query = 'INSERT INTO StoreManager.products (name) VALUE ?';
   const [{ insertId }] = await connection.execute(query, [name]);
   return insertId;
 };
@@ -35,5 +41,6 @@ module.exports = {
   findById,
   updateById,
   deleteById,
+  findByQuery,
   insert,
 };

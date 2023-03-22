@@ -4,6 +4,8 @@ const hasName = require('../middlewares/hasName');
 
 const router = express.Router();
 
+router.get('/search', productsController.findByQuery);
+
 router.get('/:id', productsController.findById);
 
 router.put('/:id', hasName, productsController.updateById);

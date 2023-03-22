@@ -30,9 +30,19 @@ const updateById = async (id, name) => {
   if (affectedRows === 0) return { type: 404, message: 'Product not found' };
 
   const product = await productsModel.findById(id);
-  // if (!product) return { type: 404, message: 'Product not found' }; 
 
   return { type: null, message: product };
+};
+
+const deleteById = async (id) => {
+  const isValidId = validateId(id);
+  if (isValidId.type) return isValidId;
+
+  const affectedRows = await productsModel.deleteById(id);
+  console.log(affectedRows);
+  if (affectedRows === 0) return { type: 404, message: 'Product not found' };
+  
+  return { type: null };
 };
 
 const insert = async (name) => {
@@ -51,5 +61,6 @@ module.exports = {
   findAll,
   findById,
   updateById,
+  deleteById,
   insert,
 };

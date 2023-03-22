@@ -8,6 +8,8 @@ router.get('/:id', productsController.findById);
 
 router.put('/:id', hasName, productsController.updateById);
 
+router.delete('/:id', productsController.deleteById);
+
 router.get('/', productsController.findAll);
 
 router.post('/', hasName, productsController.insert);

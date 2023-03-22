@@ -42,8 +42,19 @@ const findById = async (id) => {
   return { type: null, message: sale };
 };
 
+const deleteById = async (id) => {
+  const isValidId = validateId(id);
+  if (isValidId.type) return isValidId;
+
+  const affectedRows = await salesModel.deleteById(id);
+  if (affectedRows === 0) return { type: 404, message: 'Sale not found' };
+  
+  return { type: null };
+};
+
 module.exports = { 
   // insertSale,
   findAll,
   findById,
+  deleteById,
 };

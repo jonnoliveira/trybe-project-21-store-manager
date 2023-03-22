@@ -125,5 +125,19 @@
     "headers": [],
     "params": [],
     "tests": []
+  },
+  {
+    "_id": "6ca1e118-53d9-4762-805a-d14203109084",
+    "colId": "history",
+    "containerId": "",
+    "name": "DELETE sales",
+    "url": "http://localhost:3001/sales/id",
+    "method": "DELETE",
+    "sortNum": 0,
+    "created": "2023-03-22T20:26:13.074Z",
+    "modified": "2023-03-22T20:26:13.074Z",
+    "headers": [],
+    "params": [],
+    "tests": []
   }
 ]

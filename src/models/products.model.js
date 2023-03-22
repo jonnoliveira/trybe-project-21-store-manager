@@ -32,7 +32,7 @@ const findByQuery = async (q) => {
 };
 
 const insert = async (name) => {  
-  const query = 'INSERT INTO StoreManager.products (name) VALUE ?';
+  const query = 'INSERT INTO StoreManager.products (name) VALUE (?)';
   const [{ insertId }] = await connection.execute(query, [name]);
   return insertId;
 };

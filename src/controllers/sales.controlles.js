@@ -1,13 +1,13 @@
 const { salesService } = require('../services');
 
-// const insertSale = async (req, res) => {
-//   const { body } = req;
-//   const { type, message } = await salesService.insertSale(body);
+const insertSale = async (req, res) => {
+  const { body } = req;
+  const { type, message } = await salesService.insertSale(body);
   
-//   if (type) return res.status(type).json({ message });
+  if (type) return res.status(type).json({ message });
 
-//   return res.status(201).json(message);
-// };
+  return res.status(201).json(message);
+};
 
 const findAll = async (_req, res) => {
   const { type, message } = await salesService.findAll();
@@ -47,7 +47,7 @@ const updateById = async (req, res) => {
 };
 
 module.exports = {
-  // insertSale,
+  insertSale,
   findAll,
   findById,
   deleteById,

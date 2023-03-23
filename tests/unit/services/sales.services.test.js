@@ -7,7 +7,7 @@ salesModel, productsModel
 
 const { salesService } = require('../../../src/services');
 
-const { salesList, saleItem, productById } = require('./mocks/sales.service.mock');
+const { salesList, saleItem, productById, itemsSold } = require('./mocks/sales.service.mock');
 
 describe('Teste da unidade do salesService', async function () {
   describe('Listando todos as vendas', function () {
@@ -247,6 +247,92 @@ describe('Teste da unidade do salesService', async function () {
       // assert
       expect(result.type).to.be.equal(null);
       expect(result.message).to.deep.equal(saleModelRetun);
+    });
+  });
+
+  describe('Inserindo uma venda', function () {
+    it('Retorna erro se o campo productId for inválido', async function () {
+      // arrange
+      const body = [
+        {
+          "productId": 0,
+          "quantity": 10
+        },
+        {
+          "productId": 2,
+          "quantity": 50
+        }
+      ];
+    
+      // act
+      const result = await salesService.insertSale(body);
+
+      // assert
+      expect(result.type).to.be.equal(422);
+      expect(result.message).to.be.equal('"productId" must be greater than or equal to 1');
+    });
+
+    it('Retorna erro se o campo productId não existir', async function () {
+      // arrange
+      const body = [
+        {
+          "productId": 15,
+          "quantity": 10
+        },
+        {
+          "productId": 2,
+          "quantity": 50
+        }
+      ];
+      sinon.stub(productsModel, 'findById').resolves(undefined);
+      
+      // act
+      const result = await salesService.insertSale(body);
+
+      // assert
+      expect(result.type).to.be.equal(404);
+      expect(result.message).to.be.equal('Product not found');
+    });
+
+    it('Retorna erro caso algo ocorra na inserçao da Data', async function () {
+      // arrange
+      const body = [
+        {
+          "productId": 1,
+          "quantity": 10
+        }
+      ];
+
+      sinon.stub(productsModel, 'findById').resolves(productById);
+      sinon.stub(salesModel, 'insertDate').resolves(undefined);
+      
+      // act
+      const result = await salesService.insertSale(body);
+
+      // assert
+      expect(result.type).to.be.equal(404);
+      expect(result.message).to.be.equal('Product not found');
+    });
+
+    it('Retorna sucesso se tudo ok', async function () {
+      // arrange
+      const body = [
+        {
+          "productId": 1,
+          "quantity": 10
+        }
+      ];
+
+      sinon.stub(productsModel, 'findById').resolves(productById);
+      sinon.stub(salesModel, 'insertDate').resolves(4);
+      sinon.stub(salesModel, 'insertSale').resolves(0);
+      
+      // act
+      const result = await salesService.insertSale(body);
+
+      // assert
+      expect(result.type).to.be.equal(null);
+      expect(result.message).to.be.deep.equal(itemsSold);
     });
   });
   afterEach(() => {

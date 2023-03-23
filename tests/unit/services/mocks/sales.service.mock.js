@@ -40,9 +40,20 @@ saleModelRetun = {
   ]
 }
 
+  const itemsSold = {
+    "id": 4,
+    "itemsSold": [
+      {
+        "productId": 1,
+        "quantity": 10
+      }
+    ]
+}
+
 module.exports = {
   salesList,
   saleItem,
   productById,
-  saleModelRetun
+  saleModelRetun,
+  itemsSold
 }

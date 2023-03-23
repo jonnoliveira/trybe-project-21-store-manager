@@ -1,16 +1,20 @@
 const connection = require('./connection');
 
-// const insertDate = async () => {
-//   const query = 'INSERT INTO StoreManager.sales (date) VALUE (NOW())';
-//   const [{ insertId }] = await connection.execute(query, []);
-//   return insertId;
-// };
+const insertDate = async () => {
+  const query = 'INSERT INTO StoreManager.sales (date) VALUE (NOW())';
+  const [{ insertId }] = await connection.execute(query, []);
+  return insertId;
+};
 
-// const insertSale = async (newProductId, productId, quantity) => {
-//   // const query = 'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)';
-//   // const [{ insertId }] = await connection.execute(query, [newProductId, productId, quantity]);
-//   // return insertId;
-// };
+const insertSale = async (newProductId, productId, quantity) => {
+  const query = (`
+    INSERT INTO
+      StoreManager.sales_products (sale_id, product_id, quantity)
+    VALUES
+      (?, ?, ?)`);
+  const [{ insertId }] = await connection.execute(query, [newProductId, productId, quantity]);
+  return insertId;
+};
 
 const findAll = async () => {
   const query = (`
@@ -64,8 +68,8 @@ const updateById = async (quantity, id, productId) => {
 };
 
 module.exports = {
-  // insertDate,
-  // insertSale,
+  insertDate,
+  insertSale,
   findAll,
   findById,
   deleteById,

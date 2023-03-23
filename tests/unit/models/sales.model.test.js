@@ -66,6 +66,35 @@ describe('Teste da unidade do salesModel', function () {
     });
   });
 
+  describe('Inserindo nova data', function () {
+    it('Deve retornar um insertId', async function () {
+      // arrange
+      sinon.stub(connection, 'execute').resolves([{ insertId: 0 }]);
+
+      // act
+      const result = await salesModel.insertDate();
+
+      // assert
+      expect(result).to.be.deep.equal(0);
+    });
+  });
+
+  describe('Inserindo nova data', function () {
+    it('Deve retornar um insertId', async function () {
+      // arrange
+      const newProductId = 8;
+      const productId = 1;
+      const quantity = 10;
+      sinon.stub(connection, 'execute').resolves([{ insertId: 0 }]);
+
+      // act
+      const result = await salesModel.insertSale(newProductId, productId, quantity);
+
+      // assert
+      expect(result).to.be.deep.equal(0);
+    });
+  });
+
   afterEach(() => {
     sinon.restore();
   });

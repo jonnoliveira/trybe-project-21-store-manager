@@ -8,7 +8,7 @@ chai.use(sinonChai);
 const { salesController } = require('../../../src/controllers');
 const { salesService } = require('../../../src/services');
 
-const { salesList, saleById, updatedItem } = require('./mocks/sales.mock.js')
+const { salesList, saleById, updatedItem, insertedItem } = require('./mocks/sales.mock.js')
 
 describe('Teste da unidade do salesController', function () {
   describe('Listando todos as vendas', function () {
@@ -199,6 +199,67 @@ describe('Teste da unidade do salesController', function () {
       // assert
       expect(res.status).to.have.been.calledWith(200);
       expect(res.json).to.have.been.calledWith(updatedItem);
+    });
+  });
+
+  describe('Inserindo uma venda', function () {
+    it('Retorna erro se não houver o campo productId', async function () {
+      // arrange
+      const req = {
+        body: [
+          {
+            "quantity": 10
+          },
+          {
+            "productId": 2,
+            "quantity": 50
+          }
+        ]
+      };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(salesService, 'insertSale')
+        .resolves({ type: 400, message: '"productId" is required' });
+      
+      // act
+      await salesController.insertSale(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(400);
+      expect(res.json).to.have.been.calledWith({ message: '"productId" is required' });
+    });
+
+    it('Retorna sucesso se tiver tudo certo', async function () {
+      // arrange
+      const req = {
+        body: [
+          {
+            "productId": 1,
+            "quantity": 10
+          },
+          {
+            "productId": 2,
+            "quantity": 50
+          }
+        ]
+      };
+      const res = {};
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+      sinon
+        .stub(salesService, 'insertSale')
+        .resolves({ type: null, message: insertedItem });
+      
+      // act
+      await salesController.insertSale(req, res);
+
+      // assert
+      expect(res.status).to.have.been.calledWith(201);
+      expect(res.json).to.have.been.calledWith(insertedItem);
     });
   });
 

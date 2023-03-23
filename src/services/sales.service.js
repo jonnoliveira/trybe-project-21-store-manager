@@ -1,7 +1,9 @@
 const salesModel = require('../models/sales.model');
+const productModel = require('../models/products.model');
+
 const { validateId } = require('../middlewares/validateId');
 
-// const { validateSales } = require('../middlewares/validateSales');
+const { validateSales } = require('../middlewares/validateSales');
 
 // const insertSale = async (body) => {
 //   const isValidSales = validateSales(body);
@@ -52,9 +54,47 @@ const deleteById = async (id) => {
   return { type: null };
 };
 
+const validationProductId = async (body) => {
+  if (body) {
+    const products = await Promise.all(
+      body.map(async ({ productId }) => productModel.findById(productId)),
+    );
+
+    const isUndefined = products.some((p) => p === undefined);
+    if (isUndefined) return { type: 404, message: 'Product not found' };
+  }
+  return { type: null, message: '' };
+};
+
+const updateById = async (id, body) => {
+  const isValidId = validateId(id);
+  if (isValidId.type) return isValidId;
+
+  const isValidSales = validateSales(body);
+  if (isValidSales.type) return isValidSales;
+
+  const exist = await validationProductId(body);
+  if (exist.type) return exist;
+  
+  const idExists = await salesModel.findById(id);
+  if (idExists.length === 0) return { type: 404, message: 'Sale not found' };
+  
+  const promises = body.map((sale) => (
+    salesModel.updateById(sale.quantity, id, sale.productId)
+  ));
+
+  await Promise.all(promises);
+
+  const product = await salesModel.findById(id);
+  const itemsUpdated = product;
+
+  return { type: null, message: { saleId: id, itemsUpdated } };
+};
+
 module.exports = { 
   // insertSale,
   findAll,
   findById,
   deleteById,
+  updateById,
 };

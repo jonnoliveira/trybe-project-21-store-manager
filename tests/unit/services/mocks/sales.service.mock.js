@@ -22,12 +22,27 @@ const salesList = [
 saleItem = [
   {
     "date": "2023-03-22T16:09:09.000Z",
-    "productId": 3,
+    "productId": 1,
     "quantity": 15
   },
 ];
 
+productById = { id: 1, name: 'Martelo de Thor' };
+
+saleModelRetun = {
+  saleId: 1,
+  itemsUpdated: [
+    {
+    date: "2023-03-22T16:09:09.000Z",
+    productId: 1,
+    quantity: 15
+    }
+  ]
+}
+
 module.exports = {
   salesList,
   saleItem,
+  productById,
+  saleModelRetun
 }

@@ -9,6 +9,8 @@ const findAll = async () => {
 const findById = async (id) => {
   const query = 'SELECT * FROM StoreManager.products WHERE id = ?';
   const [[product]] = await connection.execute(query, [id]);
+  console.log(product);
+
   return product;
 };
 

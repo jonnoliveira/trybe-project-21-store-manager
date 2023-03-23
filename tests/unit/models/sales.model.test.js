@@ -50,6 +50,22 @@ describe('Teste da unidade do salesModel', function () {
     });
   });
 
+  describe('Atualizando um produto da lista pelo Id', function () {
+    it('Deve retornar um id de cadastro', async function () {
+      // arrange
+      const quantity = 15;
+      const id = 1;
+      const productId = 1
+      sinon.stub(connection, 'execute').resolves([{ affectedRows: 1 }]);
+
+      // act
+      const result = await salesModel.updateById(quantity, id, productId);
+
+      // assert
+      expect(result).to.be.deep.equal(1);
+    });
+  });
+
   afterEach(() => {
     sinon.restore();
   });

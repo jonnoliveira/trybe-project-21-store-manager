@@ -22,11 +22,18 @@
   
 </summary>
 
-Para realizar esse projeto desenvolvi uma API tendo em mente as 4 operações básicas de uma aplicação, o CRUD (Create, Read, Update e Delete). Além disso desenvolvi endpoints que liam e escreviam em um arquivo utilizando o módulo fs do Node.JS. Esse módulo disponibiliza diversas funcionalidades úteis para acessar e interagir com algum arquivo do sistema.
-  
-No processo de desenvolvimento usei o Docker para envolver a aplicação em seu próprio ambiente, Node.JS para transação de dados e requisições assíncronas do back-end , JavaScript e o Express para criar um servidor na aplicação.
+Esse projeto consistiu na criação de uma API RESTful, sendo ela um sistema de gerenciamento de vendas.
 
-Por fim, com objetivo de validar e tratar as informações, criei diversos middlewares que foram implementados nos endpoints de acordo com a necessidade de cada um. Veja mais abaixo!
+Uma API RESTful recebe esse nome por seguir regras e restrições pré-determinadas no desenvolvimento de uma aplicação, garantindo uma interface bem definida, com rotinas padronizadas e facilmente representadas, que facilitam a comunicação entre máquinas e usuários.
+
+Essa API foi construída com base na arquitetura por camadas chamada de Model-Service-Controller (MSC). Nessa arquitetura subdividimos todo código da aplicação por sua função na camada que compete a cada um.
+
+Outras features desse projeto:
+- Utilização do MySQL para o gerenciamento do banco;
+- NodeJS;
+- Docker;
+
+Para implementação dos testes da aplicação foi utilizado Mocha, Chai e o Sinon. Veja mais abaixo!
   
 </details>
 

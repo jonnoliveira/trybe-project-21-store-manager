@@ -75,7 +75,7 @@ Por fim, com objetivo de validar e tratar as informações, criei diversos middl
 
 ## 100% :heavy_check_mark:
 
-![Project-store-manager-grade]()
+![Project-store-manager-grade](https://github.com/jonnoliveira/trybe-project-21-store-manager/blob/main/images/store-manager-grade.png)
 
 </details> 
  
